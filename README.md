@@ -5,4 +5,4 @@ Multimodal Emotion Recognition 2025 Competition Learning
 https://github.com/zeroQiaoba/MERTools/tree/master/MER2025
 
 # 步骤与思考
-1.安装torch2.4.0+cu121
+1.在ubuntu物理机的anaconda内部署torch2.4.0+cu121
