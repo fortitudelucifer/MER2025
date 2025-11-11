@@ -41,6 +41,17 @@ https://github.com/zeroQiaoba/MERTools/tree/master/MER2025
 - sudo apt update
 - sudo apt install timeshift -y
 - sudo timeshift --create --comments "安装CUDA前的备份" --tags D
+  - First run mode (config file not found)
+Selected default snapshot type: RSYNC
+Mounted '/dev/nvme0n1p3' at '/run/timeshift/3925311/backup'
+Selected default snapshot device: /dev/nvme0n1p3
+  - Estimating system size...
+Creating new snapshot...(RSYNC)
+Saving to device: /dev/nvme0n1p3, mounted at path: /run/timeshift/3925311/backup
+Syncing files with rsync...
+Created control file: /run/timeshift/3925311/backup/timeshift/snapshots/2025-11-11_15-30-11/info.json
+RSYNC Snapshot saved successfully (22s)
+
 - sudo timeshift --list
   - 恢复备份
 - sudo timeshift-gtk
