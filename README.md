@@ -37,3 +37,11 @@ https://github.com/zeroQiaoba/MERTools/tree/master/MER2025
 - python -m pip install --index-url https://download.pytorch.org/whl/cu121 torchaudio==2.4.0
   - 从 PyTorch 官方 cu121 源安装匹配的 torchaudio 2.4.0
 
+## 担心关键换配置冲突，备份快照
+- sudo apt update
+- sudo apt install timeshift -y
+- sudo timeshift --create --comments "安装CUDA前的备份" --tags D
+- sudo timeshift --list
+  - 恢复备份
+- sudo timeshift-gtk
+  - 使用GUI
