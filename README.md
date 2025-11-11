@@ -14,7 +14,8 @@ https://github.com/zeroQiaoba/MERTools/tree/master/MER2025
 # 遇到的问题及解决方案
 ## ERROR: Ignored the following versions that require
 - 从file environment_vllm2.yml构建过程中，pip安装的依赖几乎都被跳过了，因为我的conda-base环境并没有安装具体的runtime version
-![image](https://github.com/fortitudelucifer/MER2025/blob/main/attachment/%E6%98%BE%E5%8D%A1-%E9%A9%B1%E5%8A%A8-GUI%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png)
+<img src="https://github.com/fortitudelucifer/MER2025/blob/main/attachment/%E6%98%BE%E5%8D%A1-%E9%A9%B1%E5%8A%A8-GUI%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png" height="50%" width="50%" >
+
 
 ## OSError（libtorchaudio.so undefined symbol）： torchaudio 与 torch 的二进制不匹配导致。solution：把torchaudio降级到2.40版本
 - python -m pip install -U pip setuptools wheel
