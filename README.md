@@ -26,7 +26,7 @@ https://github.com/zeroQiaoba/MERTools/tree/master/MER2025
     - opencv-python
     - scikit-image
     - scikit-learn
-    - 最大的问题出现在flash-attn上，在我安装完所有的包后通过在 Release v2.7.4.post1 · Dao-AILab/flash-attention 发布页直接下载 2.7.4.post1+cu12torch2.4cxx11abiFALSE-cp310-cp310-linux_x86_64.whl 文件然后在ubuntu里install成功
+    - 最大的问题出现在flash-attn上，在我安装完所有的包后通过在 解决方案：https://blog.csdn.net/niuma178/article/details/135055359   Release v2.7.4.post1 · Dao-AILab/flash-attention 发布页直接下载 2.7.4.post1+cu12torch2.4cxx11abiFALSE-cp310-cp310-linux_x86_64.whl 文件然后在ubuntu里install成功
 
 ## OSError（libtorchaudio.so undefined symbol）： torchaudio 与 torch 的二进制不匹配导致。solution：把torchaudio降级到2.40版本
 - python -m pip install -U pip setuptools wheel
@@ -59,6 +59,7 @@ RSYNC Snapshot saved successfully (22s)
   - 使用GUI
  
 ## 不同版本cuda的统一管理
+其一参考：https://blog.csdn.net/beiyoulijun/article/details/146132289
 ### 系统级安装cuda13.0和cuda12.1
 - mkdir -p ~/cuda_installers
 - cd ~/cuda_installers/
@@ -142,5 +143,34 @@ unset OLD_LD_LIBRARY_PATH
 #### 首次激活 vllm2 成功：activate.d 脚本运行，将 CUDA 12.1 的路径添加到了 PATH 的最前面。此时一切正常。停用 vllm2 时灾难发生：deactivate.d 脚本运行。它执行了 export PATH=$OLD_PATH。但由于某些未知的 Shell 环境交互问题，此时的 $OLD_PATH 变量已经丢失或变为空了。结果：export PATH=$OLD_PATH 这个命令变成了 export PATH=，它直接将 PATH 环境变量设置成了一个空字符串。连锁反应：PATH 变空后，Shell 找不到任何系统命令，如 pip, which, grep, ls 等，因为存放它们的 /usr/bin, /bin 等目录已经不在“地址簿”里了。这就是“没有那个文件或目录”或“未找到命令”错误的根源。
 - nano ~/miniconda3/envs/vllm2/etc/conda/activate.d/env_vars.sh 不用保存旧变量OLD，删掉保存即可
 - nano ~/miniconda3/envs/vllm2/etc/conda/deactivate.d/env_vars.sh
-
+  - #!/bin/sh\# 使用 sed 命令从 PATH 中安全地移除 CUDA 12.1 的 bin 目录。\# sed 的 's|...:||' 语法会查找并删除我们添加的路径和后面的冒号。
+export PATH=$(echo "$PATH" | sed -e 's|/usr/local/cuda-12.1/bin:||')\# 同样地，从 LD_LIBRARY_PATH 中安全地移除 CUDA 12.1 的 lib64 目录。
+export LD_LIBRARY_PATH=$(echo "$LD_LIBRARY_PATH" | sed -e 's|/usr/local/cuda-12.1/lib64:||')\# 取消设置 CUDA_HOME 变量
+unset CUDA_HOME
+- 终究还是坏掉了
+- 备份以后重建环境 conda env export -n vllm2 > vllm2_environment.yml
+### 重新安装vllm2环境
+- conda env export -n vllm2 > environment.yml
+- conda activate vllm2
+- pip freeze > ~/requirements.txt
+- conda deactivate
+- conda env remove --name vllm2
+- conda env create -f environment.yml
+  - environment.yml 文件所在的目录下
+- 不出意外flash-attn出问题了，先注释掉重新conda env create -f environment.yml
+- 永久配置nvcc的环境变量
+  - echo '' >> ~/.bashrc
+  - echo '# Set default CUDA path' >> ~/.bashrc
+  - echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
+  - echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
+  - source ~/.bashrc
+- conda env create -f environment_vllm2.yml
+  - 注释掉flash-attn/pytorch-lightning==2.5.0.post0niyuy
+  - 删除bokeh/bottleneck/py-cpuinfo/pyairports/tool-helpers/debugpy/fonttools/jiter/propcache/protobuf后面的版本号
+  - conda activate vllm2
+  - pip install torch==2.4.1+cu121 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+  - conda env create -f environment_vllm2.yml
+  - 安装flash-attn 
+  - 单独安装opencv-python/scikit-image/scikit-learn
+  
 
