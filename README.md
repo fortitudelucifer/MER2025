@@ -26,7 +26,7 @@ https://github.com/zeroQiaoba/MERTools/tree/master/MER2025
     - opencv-python
     - scikit-image
     - scikit-learn
-    - 最大的问题出现在flash-attn上，在我安装完所有的包后通过在 解决方案：https://blog.csdn.net/niuma178/article/details/135055359   Release v2.7.4.post1 · Dao-AILab/flash-attention 发布页直接下载 2.7.4.post1+cu12torch2.4cxx11abiFALSE-cp310-cp310-linux_x86_64.whl 文件然后在ubuntu里install成功
+    - 最大的问题出现在flash-attn上，在我安装完所有的包后通过在 解决方案：https://blog.csdn.net/niuma178/article/details/135055359   Release v2.7.4.post1 · Dao-AILab/flash-attention 发布页直接下载 2.7.4.post1+cu12torch2.4cxx11abiFALSE-cp310-cp310-linux_x86_64.whl 文件然后在ubuntu里install成功 pip install flash_attn-2.7.4.post1+cu12torch2.4cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
 
 ## OSError（libtorchaudio.so undefined symbol）： torchaudio 与 torch 的二进制不匹配导致。solution：把torchaudio降级到2.40版本
 - python -m pip install -U pip setuptools wheel
@@ -166,11 +166,14 @@ unset CUDA_HOME
   - source ~/.bashrc
 - conda env create -f environment_vllm2.yml
   - 注释掉flash-attn/pytorch-lightning==2.5.0.post0niyuy
-  - 删除bokeh/bottleneck/py-cpuinfo/pyairports/tool-helpers/debugpy/fonttools/jiter/propcache/protobuf后面的版本号
   - conda activate vllm2
   - pip install torch==2.4.1+cu121 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
   - conda env create -f environment_vllm2.yml
-  - 安装flash-attn 
+  - 删除bokeh/bottleneck/py-cpuinfo/pyairports/debugpy/fonttools/jiter/propcache/protobuf后面的版本号
+  - conda activate vllm2
+  - 将pip的板块单独提出来成为 requirement.txt然后pip install -r requirements.txt遇到报错就删版本号再次运行
+  - 安装flash-attn
+  - bottleneck一直安装不上
   - 单独安装opencv-python/scikit-image/scikit-learn
   
 
