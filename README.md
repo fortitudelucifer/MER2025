@@ -175,5 +175,11 @@ unset CUDA_HOME
   - 安装flash-attn
   - bottleneck一直安装不上
   - 单独安装opencv-python/scikit-image/scikit-learn
+ 
+### 特征提取完后训练
+#### 遇到 torchvision 版本兼容性问题。在新版本的 torchvision 中，torchvision.transforms.functional_tensor 模块已被移除或重命名
+- nano /home/forcifer-123/miniconda3/envs/vllm2/lib/python3.10/site-packages/pytorchvideo/transforms/augmentations.py
+  - 定位文件修改库的导入文件
+
   
 
