@@ -1,0 +1,31 @@
+# Optimization Strategies in AI Training
+1. 监控训练过程
+2. 增加正则化
+  如python -u main-release.py \
+    --model='attention' \
+    --feat_type='utt' \
+    --dataset=MER2025 \
+    --audio_feature=chinese-hubert-base-UTT \
+    --text_feature=chinese-hubert-base-UTT \
+    --video_feature=chinese-hubert-base-UTT \
+    --gpu=0 \
+    --dropout=0.5 \          # 增加 dropout（如果支持）
+    --weight_decay=0.01 \    # 增加权重衰减
+    --lr=0.0001             # 降低学习率
+3. 数据增强
+  如--use_data_augmentation=True
+    --mixup_alpha=0.2
+4.提前停止
+  如--early_stop=10  # 验证集性能10个epoch不提升就停止
+    --patience=5
+5.实时查看训练日志
+  # 实时监控
+  tail -f train.log
+  # 提取关键指标
+  grep "eval results" train.log
+6.可视化训练过程
+  ls -lh *.png *.jpg *.pdf  # 训练曲线图
+  ls -lh tensorboard/       # TensorBoard 日志
+  ls -lh wandb/             # Weights & Biases 日志
+  tensorboard --logdir=./tensorboard --port=6006 # 如果有tensorboard
+  # 然后在浏览器访问 http://localhost:6006
