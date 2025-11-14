@@ -1,18 +1,13 @@
-sudo nano /etc/systemd/system/todesk.service
+sudo systemctl edit todeskd.service
 
-[Unit]
-Description=ToDesk remote control service
-After=network.target
+\### Anything between here and the comment below will become the contents of the drop-in file
 
 [Service]
-Type=simple
-ExecStart=/opt/todesk/bin/ToDesk
 Restart=always
 RestartSec=5s
-User=forcifer-123
-\# 您可以根据需要修改WorkingDirectory，如果ToDesk依赖特定的工作目录
-\# WorkingDirectory=/home/forcifer-123
 
-[Install]
-WantedBy=multi-user.target
+\### Edits below this comment will be discarded
 
+保存-离开
+
+sudo systemctl show -p Restart -p RestartUSec todeskd.service
