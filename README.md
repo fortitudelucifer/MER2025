@@ -8,8 +8,9 @@ https://github.com/zeroQiaoba/MERTools/tree/master/MER2025
 
 # 步骤
 1. 在ubuntu物理机的anaconda内部署torch2.4.0+cu121
-2. conda env create -f environment_vllm2.yml
-3. conda activate vllm2
+2. 确定nvidia的卡上线 \# 只看GPU 0的信息nvidia-smi -i 0
+3. conda env create -f environment_vllm2.yml
+4. conda activate vllm2
 
 
 
@@ -180,6 +181,7 @@ unset CUDA_HOME
  
 ### 特征提取完后训练
 #### 遇到 torchvision 版本兼容性问题。在新版本的 torchvision 中，torchvision.transforms.functional_tensor 模块已被移除或重命名
+
 - nano /home/forcifer-123/miniconda3/envs/vllm2/lib/python3.10/site-packages/pytorchvideo/transforms/augmentations.py
   - 定位文件修改库的导入文件
 
