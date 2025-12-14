@@ -1,5 +1,13 @@
 # Optimization Strategies in AI Training
 1. 监控训练过程
+- nvtop
+  - sudo apt update
+  - sudo apt install nvtop
+  - nvtop
+- cpu
+  - htop
+- gpu
+  - watch -n 1 nvidia-smi
 2. 增加正则化
   如python -u main-release.py \
     --model='attention' \
@@ -29,3 +37,7 @@
   ls -lh wandb/             # Weights & Biases 日志
   tensorboard --logdir=./tensorboard --port=6006 # 如果有tensorboard
   # 然后在浏览器访问 http://localhost:6006
+7.持续跑
+```cmd
+nohup python xxx.py > xxx.log
+```
